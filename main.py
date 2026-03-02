@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
-url = "https://daraz.com.np"
+url = "https://https://worldmonitor.app/?lat=28.7021&lon=37.0223&zoom=3.95&view=global&timeRange=7d&layers=conflicts%2Cbases%2Chotspots%2Cnuclear%2Csanctions%2Cweather%2Ceconomic%2Cwaterways%2Coutages%2Cmilitary%2Cnatural%2CiranAttacks"
 
 headers = {
     "User-Agent": "Mozilla/5.0"
