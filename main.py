@@ -7,7 +7,7 @@ with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
 
-    page.goto("https://globalforcefc.github.io", timeout=60000)
+    page.goto("https://www.daraz.com.np", timeout=60000)
     page.wait_for_load_state("networkidle")
 
     # ======================
