@@ -8,8 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -19,20 +18,13 @@ jobs:
       - name: Install dependencies
         run: |
           pip install playwright pandas
-          # The --with-deps flag is crucial for Linux runners to launch the browser
-          playwright install chromium --with-deps 
+          playwright install
 
       - name: Run script
-        # Ensure your python file is actually named 'main.py' 
         run: python main.py
-
-      - name: Check if file exists (Debug step)
-        run: ls -l output.csv || echo "File not found!"
 
       - name: Upload CSV
         uses: actions/upload-artifact@v4
         with:
           name: scraped-data
           path: output.csv
-          # This ensures the action fails if the file is missing
-          if-no-files-found: error
