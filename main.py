@@ -4,16 +4,46 @@ import pandas as pd
 
 url = "https://daraz.com.np"
 
-response = requests.get(url)
+headers = {
+    "User-Agent": "Mozilla/5.0"
+}
+
+response = requests.get(url, headers=headers)
 soup = BeautifulSoup(response.text, "html.parser")
 
-titles = soup.find_all("h2")
-
 data = []
-for title in titles:
-    data.append(title.text.strip())
 
-df = pd.DataFrame(data, columns=["Title"])
+# Extract page title
+page_title = soup.title.string if soup.title else "No Title"
+
+# Extract all headings
+for tag in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6"]):
+    data.append({
+        "Type": "Heading",
+        "Content": tag.get_text(strip=True),
+        "Link": "",
+        "Image": ""
+    })
+
+# Extract all links
+for link in soup.find_all("a"):
+    data.append({
+        "Type": "Link",
+        "Content": link.get_text(strip=True),
+        "Link": link.get("href"),
+        "Image": ""
+    })
+
+# Extract all images
+for img in soup.find_all("img"):
+    data.append({
+        "Type": "Image",
+        "Content": img.get("alt"),
+        "Link": "",
+        "Image": img.get("src")
+    })
+
+df = pd.DataFrame(data)
 df.to_csv("output.csv", index=False)
 
 print("Scraping completed successfully!")
