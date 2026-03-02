@@ -12,7 +12,7 @@ with sync_playwright() as p:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     })
 
-    page.goto("https://worldmonitor.app", timeout=60000)
+    page.goto("https://globalforcefc.github.io", timeout=60000)
     page.wait_for_load_state("networkidle")
 
     # Page Title
